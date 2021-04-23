@@ -9,4 +9,4 @@ Cada operação tem os atributos:
 * % do CDI: Percentual do CDI que será usado para calcular o valor final da operação
 * Valor Investido: O valor que o cliente investiu e será valorizado até o a data final do contrato.
 
-O forma que o sistema realiza o cálculo do valor que o cliente irá receber pode ser consultado na planilha CalculoCDI.xls neste repositório.
+O forma que o sistema realiza o cálculo do valor que o cliente irá receber pode ser consultado na planilha CalculoOperacaoCDI.xlsx neste repositório.
