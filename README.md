@@ -15,5 +15,7 @@ Cada operação deverá obrigatóriamente gerar uma posição caso o contrato es
 
 A área de negócio verificou na conciliação que algumas operações não estão gerando posição. Você precisa entender o que está acontecendo e corrigir o mais rápido possível pois além das outras áreas estamos afetando os clientes.
 
+
+
 ### Teste 2 - API de Feriados
 Precisamos que você crie uma API REST que permita a consulta (todos ou passando o mês e ano), a adição, a remoção e a atualização de feriados. A API deve ser construida em .Net Core >= 3.1. Durante o funcionamento da API você pode guardar os dados em memória, SQLite ou o que achar mais apropriado. 
