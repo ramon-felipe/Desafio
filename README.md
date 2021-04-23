@@ -1,7 +1,7 @@
 # Desafio
 
 ### Teste 1 - Calculadora de CDI
-Existe uma biblioteca responsável por calcular diariamente o juros dos investimentos dos clientes baseados em CDI (Certificado de Depósito Interbancário). Esses cálculos geram posições que são disponibilizados para outros sistemas que precisam da informação.
+Existe uma biblioteca responsável por calcular diariamente os juros dos investimentos dos clientes baseados em CDI (Certificado de Depósito Interbancário). Esses cálculos geram posições que são disponibilizados para outros sistemas que precisam da informação.
 
 Cada operação na carteira tem os atributos:
 * Contrato - Número do contrato com o cliente
