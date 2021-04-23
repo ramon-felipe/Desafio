@@ -11,10 +11,9 @@ Cada operação na carteira tem os atributos:
 * Valor Investido: O valor que o cliente investiu e será valorizado até o a data final do contrato.
 * Valor Corrigido: O valor Investido mais o juros até o dia do cálculo
 
-Cada operação deverá obrigatoriamente gerar uma posição caso o contrato esteja vigente, ou seja, o dia do cálculo estiver entre o início e fim do contrato.
+Cada operação deverá obrigatoriamente gerar uma posição caso o contrato esteja vigente, ou seja, o dia do cálculo estiver entre o início e fim do contrato. Esta posição terá a informação do dia do cálculo, um Id aleatório pra que os outros sistemas consigam rastrear a posição e as informações da operação em si.
 
-A área de negócio verificou na conciliação que algumas operações não estão gerando posição. Você precisa entender o que está acontecendo e corrigir o mais rápido possível, pois além das outras áreas estamos afetando os clientes.
-
+A área de negócio verificou na conciliação que algumas operações não estão gerando posição. Você precisa entender o que está acontecendo e corrigir o mais rápido possível, pois além das outras áreas estamos afetando os clientes. Conseguimos preparar uma massa de testes onde aparentemente o erro está acontecendo.
 
 
 ### Teste 2 - API de Feriados
