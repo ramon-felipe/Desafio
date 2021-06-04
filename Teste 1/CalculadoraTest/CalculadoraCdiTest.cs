@@ -48,10 +48,11 @@ namespace CalculadoraTest
                 while (sr.Peek() >= 0)
                 {
                     string[] dados = sr.ReadLine().Split(";");
+
                     posicaoEsperada.Add(new PosicaoCDI
                     {
                         DataBase = DateTime.ParseExact(dados[0], "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                        IdPosicao = Convert.ToInt32(dados[1]),
+                        IdPosicao = ConvertToGuid(Convert.ToInt32(dados[1])),
                         Operacao = new OperacaoCDI
                         {
                             Contrato = Convert.ToInt32(dados[2]),
@@ -76,7 +77,18 @@ namespace CalculadoraTest
                 Assert.Equal(posicaoEsperada[i].Operacao.PorcentagemCDI, posicoes[i].Operacao.PorcentagemCDI);
                 Assert.Equal(posicaoEsperada[i].Operacao.ValorCorrigido, posicoes[i].Operacao.ValorCorrigido);
                 Assert.Equal(posicaoEsperada[i].Operacao.ValorInvestido, posicoes[i].Operacao.ValorInvestido);
+
+                Assert.False(posicoes[i].IdPosicao.Equals(Guid.Empty));
             }
+        }
+
+        private Guid ConvertToGuid(int n)
+        {
+            int byteLength = 16;
+            byte[] bytes = new byte[byteLength];
+            BitConverter.GetBytes(n).CopyTo(bytes, 0);
+
+            return new Guid(bytes);
         }
     }
 }
