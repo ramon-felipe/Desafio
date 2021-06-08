@@ -5,6 +5,7 @@ using Holiday.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace Holiday.API.Controllers
 {
@@ -29,18 +30,25 @@ namespace Holiday.API.Controllers
         [AllowAnonymous]
         public ActionResult<UserTokenViewModel> Authenticate(UserLoginRequestModel request)
         {
-            var user = _userDataBase.Get(request.Name, request.Password);
-
-            if (user == null)
+            try
             {
-                _logger.LogWarning($"User {request.Name} not found");
-                return NotFound("User not found. Verify your credentials");
+                var user = _userDataBase.Get(request.Name, request.Password);
+
+                if (user == null)
+                {
+                    _logger.LogWarning($"User {request.Name} not found");
+                    return NotFound("User not found. Verify your credentials");
+                }
+
+                var token = _tokenService.GenerateToken(user);
+
+                return Ok(new UserTokenViewModel { Id = user.Id, Name = user.Name, Role = user.Role, Token = token });
             }
-
-            var token = _tokenService.GenerateToken(user);
-
-            return Ok(new UserTokenViewModel { Id = user.Id, Name = user.Name, Role = user.Role, Token = token });
+            catch (Exception e)
+            {
+                _logger.LogError($"Error when authenticating user.\n {e.Message}");
+                return Problem($"Error when authenticating user.\n {e.Message}") ;
+            }
         }
-
     }
 }
