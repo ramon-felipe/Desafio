@@ -1,9 +1,9 @@
-﻿using Holiday.Domain;
+﻿using Holiday.Domain.Models;
+using Holiday.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
-using holiday = Holiday.Domain.Holiday;
 using System.Linq;
-using Holiday.Repository.Interfaces;
+using holiday = Holiday.Domain.Models.Holiday;
 
 namespace Holiday.Repository
 {

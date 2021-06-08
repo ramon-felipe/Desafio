@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using holiday = Holiday.Domain.Holiday;
+using holiday = Holiday.Domain.Models.Holiday;
 
 namespace Holiday.Repository.Interfaces
 {

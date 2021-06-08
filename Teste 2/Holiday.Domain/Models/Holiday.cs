@@ -1,7 +1,7 @@
 ﻿using Holiday.Domain.Models;
 using System;
 
-namespace Holiday.Domain
+namespace Holiday.Domain.Models
 {
     public class Holiday
     {

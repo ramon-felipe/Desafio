@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Holiday.Domain.Models
+namespace Holiday.Domain.ViewModels
 {
     public class HolidayViewModel
     {

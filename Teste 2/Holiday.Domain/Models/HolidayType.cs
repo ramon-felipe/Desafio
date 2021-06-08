@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Holiday.Domain
+namespace Holiday.Domain.Models
 {
     public enum HolidayType
     {

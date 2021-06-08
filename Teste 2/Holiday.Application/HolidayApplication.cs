@@ -1,10 +1,11 @@
 ﻿using Holiday.Domain.Models;
+using Holiday.Domain.RequestModels;
 using Holiday.Repository.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using holiday = Holiday.Domain.Holiday;
+using holiday = Holiday.Domain.Models.Holiday;
 
 namespace Holiday.Application
 {

@@ -1,8 +1,7 @@
-﻿using Holiday.Domain.Models;
-using System;
+﻿using Holiday.Domain.RequestModels;
 using System.Collections.Generic;
-using System.Text;
-using holiday = Holiday.Domain.Holiday;
+using holiday = Holiday.Domain.Models.Holiday;
+
 
 namespace Holiday.Application
 {

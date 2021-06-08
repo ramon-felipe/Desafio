@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Holiday.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Holiday.Domain.Models
+namespace Holiday.Domain.RequestModels
 {
     public class HolidayAddRequestModel : IValidatableObject
     {

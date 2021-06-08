@@ -2,6 +2,7 @@ using Holiday.API.Controllers;
 using Holiday.Application;
 using Holiday.Domain;
 using Holiday.Domain.Models;
+using Holiday.Domain.RequestModels;
 using Holiday.Repository;
 using Holiday.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using holiday = Holiday.Domain.Holiday;
+using holiday = Holiday.Domain.Models.Holiday;
 
 namespace Holiday.Tests
 {

@@ -1,11 +1,12 @@
 using Holiday.Application;
 using Holiday.Domain;
 using Holiday.Domain.Models;
+using Holiday.Domain.RequestModels;
 using Holiday.Repository;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using System;
-using holiday = Holiday.Domain.Holiday;
+using holiday = Holiday.Domain.Models.Holiday;
 
 namespace Holiday.Tests
 {

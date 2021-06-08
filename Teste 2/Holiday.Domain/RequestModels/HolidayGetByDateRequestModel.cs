@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Holiday.Domain.Models
+namespace Holiday.Domain.RequestModels
 {
     public class HolidayGetByDateRequestModel
     {
