@@ -110,7 +110,7 @@ namespace Holiday.API.Controllers
 
             return CreatedAtAction(nameof(GetHoliday),
                                    routeValues: new { id = holiday.Id }, 
-                                   holiday);
+                                   holiday.ToModel());
         }
 
         /// <summary>
