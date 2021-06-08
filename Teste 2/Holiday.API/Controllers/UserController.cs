@@ -12,11 +12,11 @@ namespace Holiday.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<HolidaysController> _logger;
+        private readonly ILogger<UserController> _logger;
         private readonly IUserDataBase _userDataBase;
         private readonly IToken _tokenService;
 
-        public UserController(ILogger<HolidaysController> logger, 
+        public UserController(ILogger<UserController> logger, 
                               IUserDataBase userDataBase,
                               IToken tokenService)
         {
@@ -32,7 +32,10 @@ namespace Holiday.API.Controllers
             var user = _userDataBase.Get(request.Name, request.Password);
 
             if (user == null)
-                return NotFound("User not found");
+            {
+                _logger.LogWarning($"User {request.Name} not found");
+                return NotFound("User not found. Verify your credentials");
+            }
 
             var token = _tokenService.GenerateToken(user);
 

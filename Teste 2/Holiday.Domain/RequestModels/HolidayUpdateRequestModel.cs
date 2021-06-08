@@ -30,8 +30,7 @@ namespace Holiday.Domain.RequestModels
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             string newDate = Year.ToString() +"/"+ Month.ToString() + "/" + Day.ToString();
-
-            var result = DateTime.TryParse(newDate, out DateTime date);
+            var result = DateTime.TryParse(newDate, out _);
 
             if (! result)
             {

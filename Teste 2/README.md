@@ -9,12 +9,31 @@ Este projeto utiliza InMemoryData e inicialmente há três feriados cadastrados.
 Abra o projeto Holiday.API e o execute.
 Uma janela do browser irá abrir com a tela inicial do swagger mostrando os endpoints disponíveis.
 
+_As chamadas às APIs exibidas neste documento foram realizadas com a ferramenta **Postman**_
+
+
 <img src="./images/initial_screen_swagger.png" alt="API" style="width:80%;"/>
 
 ---
 
-## Como utilizar
+## :exclamation: Como utilizar
 Foi implementado um esquema de autorização por token (JWT).
+O projeto utiliza uma chave para geração de token. Como esta chave não pode ser compartilhada em um versionador, ela está sendo gravada em um arquivo de secrets.
+
+:key: É necessário incluir uma chave que será utilizada no processo de autenticação.
+1.  clique com o botão direito no projeto **Holiday.API**.
+2.  Selecione a opção **Manage User Secrets**:
+
+    <img src="./images/manage_user_secrets.png" alt="manage-user-secrets"/>
+
+3.  Insira uma chave como no exemplo abaixo:
+
+    <img src="./images/secret.png" alt="secret"/>
+
+:x: Se a chave não estiver configurada. Ocorrerá exceção ao tentar gerar o token pelo endpoint de login (_/user/login_).
+
+---
+
 Para alguns endpoints, não é necessário estar autenticado, para outros, sim.
 
 -   Não é necessário estar autenticado em todos os endpoints para obtenção (GET) dos feriados
@@ -33,21 +52,16 @@ Veja a relação na tabela abaixo:
 | DELETE | /Holidays/delete                    | ADMIN         |
 | DELETE | /Holidays/delete-all                | ADMIN         |
 
-## Autenticação
-
-Para realizar o login e obter um token, utilize o endpoint /user/login
+## :unlock: Autenticação
+Para realizar o login e obter um token, utilize o endpoint **/user/login**
 Informe no body da requisição o usuário e a senha.
 Caso o usuário e a senha estejam corretos, você receberá no corpo da resposta o token de autenticação.
 
 <img src="./images/login.png" style="width:80%;"/>
 
-Com o token em mãos, basta incluir um parâmetro chamado AUTHORIZATION no cabeçalho da requisição informando o token.
+Com o token em mãos, basta selecionar o tipo de autorização **Bearer Token** na aba Authorization e informar o token.
 
-<img src="./images/authorization.png" alt="autorização" style="width:40%;"/>
-
-:warning: A palavra **Bearer** deve estar presente antes do valor do token.
-
-<img src="./images/bearer.png" alt="bearer" style="width:90%;"/>
+<img src="./images/authorization_bearer_token.png" style="width:90%;"/>
 
 -   ### Autenticação como **USER**
     Para obter um token e ser autorizado como USER, basta utilizar o usuário ramon e a senha 12345

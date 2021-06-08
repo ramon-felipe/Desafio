@@ -72,7 +72,7 @@ namespace Holiday.API.Controllers
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
-        [HttpGet("get-by-id/{id:int}")]
+        [HttpGet("get-by-id/{id:int}", Name = "GetById")]
         [AllowAnonymous]
         public ActionResult<HolidayViewModel> GetHoliday(int id)
         {
@@ -84,6 +84,33 @@ namespace Holiday.API.Controllers
             _logger.LogInformation("A holiday was found successfully by its id");
 
             return Ok(holiday.ToModel());
+        }
+
+        /// <summary>
+        /// Add a new holiday
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        [HttpPost("add")]
+        [Authorize(Roles = Roles.USER + "," + Roles.ADMIN)]
+        public IActionResult AddHoliday(HolidayAddRequestModel requestModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"A bad request call was made.");
+                return BadRequest("A bad request call was made. Verify the parameters you used.");
+            }
+
+            var holiday = _holidayApplication.AddHoliday(requestModel);
+
+            if (holiday == null)
+                return NotFound("Holiday not added");
+
+            _logger.LogInformation("A new holiday was added successfully");
+
+            return CreatedAtAction(nameof(GetHoliday),
+                                   routeValues: new { id = holiday.Id }, 
+                                   holiday);
         }
 
         /// <summary>
@@ -110,32 +137,6 @@ namespace Holiday.API.Controllers
 
             return Ok(holiday.ToModel());
         }
-
-        /// <summary>
-        /// Add a new holiday
-        /// </summary>
-        /// <param name="requestModel"></param>
-        /// <returns></returns>
-        [HttpPost("add")]
-        [Authorize(Roles = Roles.USER + "," + Roles.ADMIN)]
-        public ActionResult<HolidayViewModel> AddHoliday(HolidayAddRequestModel requestModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError($"A bad request call was made.");
-                return BadRequest("A bad request call was made. Verify the parameters you used.");
-            }
-
-            var holiday = _holidayApplication.AddHoliday(requestModel);
-
-            if (holiday == null)
-                return NotFound("Holiday not added");
-
-            _logger.LogInformation("A new holiday was added successfully");
-
-            return CreatedAtAction(nameof(GetHoliday), holiday.ToModel());
-        }
-
 
         /// <summary>
         /// Delete a holiday

@@ -1,4 +1,5 @@
 using Holiday.Application;
+using Holiday.Domain.Models;
 using Holiday.Repository;
 using Holiday.Repository.Interfaces;
 using Holiday.Services;
@@ -42,7 +43,13 @@ namespace Holiday.API
             services.AddSingleton<IUserDataBase, InMemoryUserRepository>();
             services.AddSingleton<IToken, JwtTokenService>();
 
-            var key = Encoding.ASCII.GetBytes(Settings.Secret);
+            var secrets = new SecretModel
+            {
+                Secret = Configuration["secret"]
+            };
+            services.AddSingleton(secrets);
+
+            var key = Encoding.ASCII.GetBytes(Configuration["secret"]);
             services.AddAuthentication(_ =>
             {
                 _.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
