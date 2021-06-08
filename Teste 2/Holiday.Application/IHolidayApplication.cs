@@ -8,8 +8,8 @@ namespace Holiday.Application
     public interface IHolidayApplication
     {
         IEnumerable<holiday> GetAllHolidays();
-        IEnumerable<holiday> GetHoliday(HolidayGetByDateRequestModel requestModel);
-        holiday GetHoliday(HolidayGetByIdRequestModel requestModel);
+        IEnumerable<holiday> GetHoliday(int month, int year);
+        holiday GetHoliday(int id);
         holiday UpdateHoliday(HolidayUpdateRequestModel requestModel);
         holiday AddHoliday(HolidayAddRequestModel requestModel);
         holiday DeleteHoliday(HolidayDeleteRequestModel requestModel);

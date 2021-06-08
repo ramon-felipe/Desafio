@@ -1,52 +1,85 @@
-# Teste 2 - API de Feriados
+# Teste 2 - API de Feriados :calendar:
 
 Com esta WebAPI é possível realizar a consulta, cadastro, alteração e remoção de feriados.
 Cada feriado contém um ID, para que seja possível cadastrar um ou mais feriados para a mesma data.
-Este projeto utiliza InMemoryData e inicialmente há três feriados cadastrados. Podemos ver estes feriados na classe InMemoryData no projeto Holidays.Repository
+Este projeto utiliza InMemoryData e inicialmente há três feriados cadastrados. Podemos ver estes feriados na classe __InMemoryData__ no projeto __Holidays.Repository__
 
-## Como executar
-
-```javascript
-var x = 10;
-```
+## Como rodar o projeto
 
 Abra o projeto Holiday.API e o execute.
 Uma janela do browser irá abrir com a tela inicial do swagger mostrando os endpoints disponíveis.
 
-<img src="./images/tela_incial_swagger.png" alt="API" style="width:80%;"/>
+<img src="./images/initial_screen_swagger.png" alt="API" style="width:80%;"/>
 
 ---
 
+## Como utilizar
+Foi implementado um esquema de autorização por token (JWT).
+Para alguns endpoints, não é necessário estar autenticado, para outros, sim.
+
+-   Não é necessário estar autenticado em todos os endpoints para obtenção (GET) dos feriados
+-   É preciso estar autenticado e autorizado como USER ou ADMIN para adição de um feriado 
+-   É necessário estar autenticado e autorizado como ADMIN para atualização e remoção de feriados
+
+Veja a relação na tabela abaixo:
+
+| Method | Endpoint                            | Role          |
+| ------ | ----------------------------------- |-------------  |
+| GET    | /Holidays                           | N/A           |
+| GET    | /Holidays/get-by-date/{month}/{year}| N/A           |
+| GET    | /Holidays/get-by-id/{id}            | N/A           |
+| PUT    | /Holidays/update                    | ADMIN         |
+| POST   | /Holidays/add                       | USER ou ADMIN |
+| DELETE | /Holidays/delete                    | ADMIN         |
+| DELETE | /Holidays/delete-all                | ADMIN         |
+
+## Autenticação
+
+Para realizar o login e obter um token, utilize o endpoint /user/login
+Informe no body da requisição o usuário e a senha.
+Caso o usuário e a senha estejam corretos, você receberá no corpo da resposta o token de autenticação.
+
+<img src="./images/login.png" style="width:80%;"/>
+
+Com o token em mãos, basta incluir um parâmetro chamado AUTHORIZATION no cabeçalho da requisição informando o token.
+
+<img src="./images/authorization.png" alt="autorização" style="width:40%;"/>
+
+:warning: A palavra **Bearer** deve estar presente antes do valor do token.
+
+<img src="./images/bearer.png" alt="bearer" style="width:90%;"/>
+
+-   ### Autenticação como **USER**
+    Para obter um token e ser autorizado como USER, basta utilizar o usuário ramon e a senha 12345
+
+-   ### Autenticação como **ADMIN**
+    Para obter um token e ser autorizado como USER, basta utilizar o usuário felipe e a senha 54321
+
+---
+---
+
 ## Consultando um feriado
+_permite modo anônimo. Não é necessário token_
 
 Para consultar feriados, a API dispõe de três endpoints:
 
     1.  /holidays
         Este endpoint retornará todos os feriados cadastrados.
-    2.  /holidays/get-by-date
+    2.  /holidays/get-by-date/{month}/{year}
         Neste endpoint, conseguimos obter todos os feriados cadastrados para um mês e ano.
-        Para isto, precisamos passar no body da requisição um JSON com o mês e ano desejados:
-```javascript
-{
-    "month": 9,
-    "year": 2001
-}
-```
+
 <img src="./images/get_by_date.png"/>
 
-    3.  /holidays/get-by-id
-        Por este endepoint, obtemos um feriado específico passando um ID no body da requisição:
+    3.  /holidays/get-by-id/{id}
+        Por este endepoint, obtemos um feriado específico passando um ID na URL da requisição:
 
-```javascript
-{
-    "id": 4
-}
-```
 <img src="./images/get_by_id.png"/>
 
 ---
 
 ## Atualizando um feriado
+
+_Para **atualizar** é necessário estar autorizado como **ADMIN**_
 
 Para atualizar um feriado, dispomos de um endpoint:
 
@@ -68,6 +101,8 @@ Para atualizar um feriado, dispomos de um endpoint:
 
 ## Adicionando um feriado
 
+_Para **adicionar** é necessário estar autorizado como **USER** ou **ADMIN**_
+
 Para adicionar um feriado, dispomos de um endpoint:
 
     1.  /holidays/add
@@ -86,6 +121,8 @@ Para adicionar um feriado, dispomos de um endpoint:
 ---
 
 ## Removendo feriados
+
+_Para **remover** é necessário estar autorizado como **ADMIN**_
 
 Para remover feriados, dispomos de dois endpoints:
 

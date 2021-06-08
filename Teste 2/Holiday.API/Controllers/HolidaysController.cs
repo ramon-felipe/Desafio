@@ -2,6 +2,7 @@
 using Holiday.Domain.Models;
 using Holiday.Domain.RequestModels;
 using Holiday.Domain.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Holiday.API.Controllers
         private readonly ILogger<HolidaysController> _logger;
         private readonly IHolidayApplication _holidayApplication;
 
-        public HolidaysController(ILogger<HolidaysController> logger, 
+        public HolidaysController(ILogger<HolidaysController> logger,
                                  IHolidayApplication holidayApplication)
         {
             _logger = logger;
@@ -28,6 +29,7 @@ namespace Holiday.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<IEnumerable<HolidayViewModel>> GetAll()
         {
             _logger.LogInformation("Calling GetAll holidays endpoint...");
@@ -49,17 +51,12 @@ namespace Holiday.API.Controllers
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
-        [HttpGet("get-by-date")]
-        public IActionResult GetHoliday(HolidayGetByDateRequestModel requestModel)
+        [HttpGet("get-by-date/{month:int:min(1):max(12)}/{year:int:min(1900):max(2100)}")]
+        [AllowAnonymous]
+        public IActionResult GetHoliday(int month, int year)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError($"A bad request call was made. Verify the parameters you used. (mont: {requestModel.Month} / year {requestModel.Year})");
-                return BadRequest("A bad request call was made. Verify the parameters you used.");
-            }
-
             var holidays = _holidayApplication
-                .GetHoliday(requestModel)
+                .GetHoliday(month, year)
                 .Select(h => h.ToModel());
 
             if (! holidays.Any())
@@ -75,16 +72,11 @@ namespace Holiday.API.Controllers
         /// </summary>
         /// <param name="requestModel"></param>
         /// <returns></returns>
-        [HttpGet("get-by-id")]
-        public ActionResult<HolidayViewModel> GetHoliday(HolidayGetByIdRequestModel requestModel)
+        [HttpGet("get-by-id/{id:int}")]
+        [AllowAnonymous]
+        public ActionResult<HolidayViewModel> GetHoliday(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                _logger.LogError($"A bad request call was made.");
-                return BadRequest("A bad request call was made. Verify the parameters you used.");
-            }
-
-            var holiday = _holidayApplication.GetHoliday(requestModel);
+            var holiday = _holidayApplication.GetHoliday(id);
 
             if (holiday == null)
                 return NotFound("Holiday not found");
@@ -100,6 +92,7 @@ namespace Holiday.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpPut("update")]
+        [Authorize(Roles = Roles.ADMIN)]
         public ActionResult<HolidayViewModel> UpdateHoliday(HolidayUpdateRequestModel requestModel)
         {
             if (!ModelState.IsValid)
@@ -124,6 +117,7 @@ namespace Holiday.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpPost("add")]
+        [Authorize(Roles = Roles.USER + "," + Roles.ADMIN)]
         public ActionResult<HolidayViewModel> AddHoliday(HolidayAddRequestModel requestModel)
         {
             if (!ModelState.IsValid)
@@ -149,6 +143,7 @@ namespace Holiday.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpDelete("delete")]
+        [Authorize(Roles = Roles.ADMIN)]
         public ActionResult<HolidayViewModel> DeleteHoliday(HolidayDeleteRequestModel requestModel)
         {
             if (!ModelState.IsValid)
@@ -173,6 +168,7 @@ namespace Holiday.API.Controllers
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpDelete("delete-all")]
+        [Authorize(Roles = Roles.ADMIN)]
         public IActionResult DeleteAllHolidays()
         {
             if (!ModelState.IsValid)

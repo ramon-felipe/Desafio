@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Holiday.Application\Holiday.Application.csproj" />
     <ProjectReference Include="..\Holiday.Repository\Holiday.Repository.csproj" />
+    <ProjectReference Include="..\Holiday.Services\Holiday.Services.csproj" />
   </ItemGroup>
 
 

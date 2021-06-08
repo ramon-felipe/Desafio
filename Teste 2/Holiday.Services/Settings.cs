@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Holiday.API
+﻿namespace Holiday.Services
 {
     public static class Settings
     {

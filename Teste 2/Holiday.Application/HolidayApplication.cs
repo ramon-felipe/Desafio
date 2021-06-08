@@ -86,13 +86,13 @@ namespace Holiday.Application
             }
         }
 
-        public IEnumerable<holiday> GetHoliday(HolidayGetByDateRequestModel requestModel)
+        public IEnumerable<holiday> GetHoliday(int month, int year)
         {
             try
             {
-                _logger.LogInformation($"Getting a holiday using {requestModel.Month} as month and {requestModel.Year} as year...");
+                _logger.LogInformation($"Getting a holiday using {month} as month and {year} as year...");
                 var holidays = _holidayDB
-                    .GetHoliday(requestModel.Month, requestModel.Year);
+                    .GetHoliday(month, year);
 
                 return holidays;
             }
@@ -103,12 +103,12 @@ namespace Holiday.Application
             }
         }
 
-        public holiday GetHoliday(HolidayGetByIdRequestModel requestModel)
+        public holiday GetHoliday(int id)
         {
             try
             {
-                _logger.LogInformation("Calling GetHoliday...");
-                var holiday = _holidayDB.GetHoliday(requestModel.Id);
+                _logger.LogInformation("Calling GetHoliday by id...");
+                var holiday = _holidayDB.GetHoliday(id);
 
                 return holiday;
             }
