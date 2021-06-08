@@ -43,8 +43,8 @@ namespace Holiday.Tests
             var newHoliday = _holidayApplication.AddHoliday(addRequest);
             var totalHolidays = _holidayDB.Holidays.Count;
             var lastHolidayId = _holidayDB.GetLastHolidayId();
-            var deleteRequest = new HolidayDeleteRequestModel { Id = lastHolidayId };
-            var deletedHoliday = _holidayApplication.DeleteHoliday(deleteRequest);
+            var id = lastHolidayId;
+            var deletedHoliday = _holidayApplication.DeleteHoliday(id);
 
             //Assert
             Assert.AreEqual(_holidayDB.Holidays.Count, totalHolidays - 1);
@@ -58,10 +58,10 @@ namespace Holiday.Tests
         {
             // Arrange
             var nextHolidayId = _holidayDB.GetNextHolidayId();
-            var deleteRequest = new HolidayDeleteRequestModel { Id = nextHolidayId };
+            var id = nextHolidayId;
 
             //Act
-            var result = _holidayApplication.DeleteHoliday(deleteRequest);
+            var result = _holidayApplication.DeleteHoliday(id);
 
             //Assert
             Assert.IsNull(result);

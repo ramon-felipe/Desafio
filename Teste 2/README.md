@@ -45,11 +45,11 @@ Veja a relação na tabela abaixo:
 | Method | Endpoint                            | Role          |
 | ------ | ----------------------------------- |-------------  |
 | GET    | /Holidays                           | N/A           |
-| GET    | /Holidays/get-by-date/{month}/{year}| N/A           |
-| GET    | /Holidays/get-by-id/{id}            | N/A           |
+| GET    | /Holidays/{month}/{year}            | N/A           |
+| GET    | /Holidays/{id}                      | N/A           |
 | PUT    | /Holidays/update                    | ADMIN         |
 | POST   | /Holidays/add                       | USER ou ADMIN |
-| DELETE | /Holidays/delete                    | ADMIN         |
+| DELETE | /Holidays/{id}                      | ADMIN         |
 | DELETE | /Holidays/delete-all                | ADMIN         |
 
 ## :unlock: Autenticação
@@ -79,12 +79,12 @@ Para consultar feriados, a API dispõe de três endpoints:
 
     1.  /holidays
         Este endpoint retornará todos os feriados cadastrados.
-    2.  /holidays/get-by-date/{month}/{year}
+    2.  /holidays/{month}/{year}
         Neste endpoint, conseguimos obter todos os feriados cadastrados para um mês e ano.
 
 <img src="./images/get_by_date.png"/>
 
-    3.  /holidays/get-by-id/{id}
+    3.  /holidays/{id}
         Por este endepoint, obtemos um feriado específico passando um ID na URL da requisição:
 
 <img src="./images/get_by_id.png"/>
@@ -140,13 +140,8 @@ _Para **remover** é necessário estar autorizado como **ADMIN**_
 
 Para remover feriados, dispomos de dois endpoints:
 
-    1.  /holidays/delete
+    1.  /holidays/{id}
         Este remove um único feriado de acordo com o ID informado no body da requisição:
-```javascript
-{
-    "id": 2
-}
-```
 <img src="./images/delete.png"/>
 
     2.  /holidays/delete-all

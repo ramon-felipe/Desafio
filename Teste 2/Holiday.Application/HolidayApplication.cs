@@ -54,12 +54,12 @@ namespace Holiday.Application
             }
         }
 
-        public holiday DeleteHoliday(HolidayDeleteRequestModel requestModel)
+        public holiday DeleteHoliday(int id)
         {
             try
             {
                 _logger.LogInformation("Deleting a holiday...");
-                return _holidayDB.DeleteHoliday(requestModel.Id);
+                return _holidayDB.DeleteHoliday(id);
             }
             catch (Exception e)
             {

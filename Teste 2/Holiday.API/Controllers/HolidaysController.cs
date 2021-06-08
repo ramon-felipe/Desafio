@@ -47,11 +47,12 @@ namespace Holiday.API.Controllers
         }
 
         /// <summary>
-        /// Return the holidays by their month and year
+        /// Return holidays based on their month and year
         /// </summary>
-        /// <param name="requestModel"></param>
+        /// <param name="month">holiday month</param>
+        /// <param name="year">holiday year</param>
         /// <returns></returns>
-        [HttpGet("get-by-date/{month:int:min(1):max(12)}/{year:int:min(1900):max(2100)}")]
+        [HttpGet("{month:int:min(1):max(12)}/{year:int:min(1900):max(2100)}")]
         [AllowAnonymous]
         public IActionResult GetHoliday(int month, int year)
         {
@@ -68,11 +69,11 @@ namespace Holiday.API.Controllers
         }
 
         /// <summary>
-        /// Return a holiday by its ID
+        /// Return an holiday by its ID
         /// </summary>
-        /// <param name="requestModel"></param>
+        /// <param name="id">Holiday ID</param>
         /// <returns></returns>
-        [HttpGet("get-by-id/{id:int}", Name = "GetById")]
+        [HttpGet("{id:int}", Name = "GetById")]
         [AllowAnonymous]
         public ActionResult<HolidayViewModel> GetHoliday(int id)
         {
@@ -139,13 +140,13 @@ namespace Holiday.API.Controllers
         }
 
         /// <summary>
-        /// Delete a holiday
+        /// Delete an holiday
         /// </summary>
-        /// <param name="requestModel"></param>
+        /// <param name="id">Holiday ID</param>
         /// <returns></returns>
-        [HttpDelete("delete")]
+        [HttpDelete("{id:int}")]
         [Authorize(Roles = Roles.ADMIN)]
-        public ActionResult<HolidayViewModel> DeleteHoliday(HolidayDeleteRequestModel requestModel)
+        public ActionResult<HolidayViewModel> DeleteHoliday(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -153,7 +154,7 @@ namespace Holiday.API.Controllers
                 return BadRequest("A bad request call was made. Verify the parameters you used.");
             }
 
-            var holiday = _holidayApplication.DeleteHoliday(requestModel);
+            var holiday = _holidayApplication.DeleteHoliday(id);
 
             if (holiday == null)
                 return NotFound("It was not possible to delete the holiday. Holiday not found.");

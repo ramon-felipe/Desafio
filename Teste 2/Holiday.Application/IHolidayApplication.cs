@@ -12,7 +12,7 @@ namespace Holiday.Application
         holiday GetHoliday(int id);
         holiday UpdateHoliday(HolidayUpdateRequestModel requestModel);
         holiday AddHoliday(HolidayAddRequestModel requestModel);
-        holiday DeleteHoliday(HolidayDeleteRequestModel requestModel);
+        holiday DeleteHoliday(int id);
         int DeleteAllHolidays();
     }
 }
