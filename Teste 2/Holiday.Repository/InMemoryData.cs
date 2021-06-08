@@ -23,11 +23,22 @@ namespace Holiday.Repository
                 new holiday{Id = 3, Date = new DateTime(2021, 08, 06), Name = "Dia do Padroeiro", Type = HolidayType.Municipal },
             };
         }
+
+        /// <summary>
+        /// Returns all Holidays
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<holiday> GetAllHolidays()
         {
             return Holidays;
         }
 
+        /// <summary>
+        /// Returns a list of holidays in a month and year
+        /// </summary>
+        /// <param name="month">holiday month</param>
+        /// <param name="year">holiday year</param>
+        /// <returns></returns>
         public IEnumerable<holiday> GetHoliday(int month, int year)
         {
             DateTime date = new DateTime(year, month, 1);
@@ -35,11 +46,24 @@ namespace Holiday.Repository
             return Holidays.Where(h => h.Date.Month == month && h.Date.Year == year);
         }
 
+        /// <summary>
+        /// Gets a holiday based on its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public holiday GetHoliday(int id)
         {
             return Holidays.FirstOrDefault(h => h.Id == id);
         }
 
+        /// <summary>
+        /// Updates a holidays
+        /// </summary>
+        /// <param name="id">holiday ID</param>
+        /// <param name="date">holiday date</param>
+        /// <param name="name">holiday name</param>
+        /// <param name="holidayType">holiday type</param>
+        /// <returns></returns>
         public holiday UpdateHoliday(int id, DateTime date, string name, HolidayType holidayType)
         {
             return Holidays.Where(h => h.Id == id)
@@ -67,6 +91,13 @@ namespace Holiday.Repository
             return GetLastHolidayId() + 1;
         }
 
+        /// <summary>
+        /// Add a new holiday
+        /// </summary>
+        /// <param name="date">holiday date</param>
+        /// <param name="name">holiday name</param>
+        /// <param name="holidayType">holiday type</param>
+        /// <returns></returns>
         public holiday AddHoliday(DateTime date, string name, HolidayType holidayType)
         {
             var nextHolidayId = GetNextHolidayId();
@@ -83,6 +114,11 @@ namespace Holiday.Repository
             return holiday;
         }
 
+        /// <summary>
+        /// Delete a single holiday based on its ID
+        /// </summary>
+        /// <param name="id">holiday ID</param>
+        /// <returns></returns>
         public holiday DeleteHoliday(int id)
         {
             var holiday = GetHoliday(id);
@@ -91,6 +127,10 @@ namespace Holiday.Repository
             return holiday;
         }
 
+        /// <summary>
+        /// Deletes all holidays
+        /// </summary>
+        /// <returns></returns>
         public int DeleteAllHolidays()
         {
             var totalHolidaysDeleted = Holidays.Count;
